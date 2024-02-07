@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <div class="card mb-3">
+        <div class="row g-0">
+            <div>
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Sign Up
+                    </h5>
+                    {% if error %}
+                    <div class="alert alert-danger mb-3" role="alert">
+                        {{ error }}
+                    </div>
+                    {% endif %}
+                    <p class="card-text">
+                        <form action="" method="post">
+                            <!-- creates a Cross-Site Request Forgery token to protect against CSRF attacks -->
+                            {% csrf_token %}
+                            <!-- displays Django's 'form' html page as a <p> tag -->
+                            {{ form.as_p }}
+                            <button class="btn btn-primary" type="submit">
+                                Sign Up
+                            </button>
+                        </form>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

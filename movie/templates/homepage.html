@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1>Welcome To the Home Page, {{ name }}</h1>
+    <h2>This is the full home page</h2>
+
+    <form action="" class="mb-3">
+        <div class="mb-3">
+            <label class="form-label">
+                Search For Movie:
+            </label>
+            <div class="input-group">
+                <input type="text" name="movieName" class="form-control">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-info">
+            Search
+        </button>
+    </form>
+
+    {% if movie_searched %}
+    <div class="progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0">
+        <div class="progress-bar overflow-visible bg-warning text-dark" style="width:50%; "> Searching for {{ movie_searched }}...</div>
+    </div>
+    {% endif %}
+
+
+    <p>Searching for: {{ movie_searched }}</p>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xxl-5 g-4">
+        {% for movie in movies %}
+        <!-- v-for attribute is part of a javascript framework (vue.js) to render a list of items -->
+            <div v-for="movie in movies" class="col">
+                <div class="card">
+                    <img src="{{ movie.image.url }}" class="card-img-top">
+                    <div class="card-body">
+                        <!-- movie.id is a parameter to the detail function in views.py -->
+                        <a class="text-decoration-none text-primary" href="{% url 'detail' movie.id %}">
+                            <h5 class="card-title fw-bold">
+                                {{ movie.title }}  
+                            </h5>
+                        </a>
+                        <p class="card-text">
+                            {{ movie.description }}
+                        </p>
+                        {% if movie.url %}
+                        <a href="{{ movie.url }}" class="btn btn-primary" target="_blank">Movie Link</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <br>
+    <br>
+
+    <h2>Join our mailing list:</h2>
+    <form action="{% url 'signup' %}">
+        <div class="mb-3">
+            <label for="email" class="form-label">
+                Enter your email:
+            </label>
+            <div class="input-group">
+                <input type="text" name="username" class="form-control" placeholder="username">
+                <span class="input-group-text">@</span>
+                <input type="text" name="server" class="form-control" placeholder="server">
+            </div>
+        </div>
+        <button type="submit" class="btn btn btn-primary">
+            Sign Up
+        </button>
+    </form>
+
+{% endblock content %}

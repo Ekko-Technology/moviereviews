@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    {% for news in newss %}
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="card-body">
+                    <h4 style="color:darkred;">{{ news.topic }}</h4>
+                    {% if news.link %}
+                        <h2 class="card-title"><a href="{{ news.link }}" style="text-decoration: none;color: rgb(41, 32, 178);">{{ news.headline }}</a></h2>
+                        {% else %}
+                        <h2 class="card-title">{{ news.headline }}</h2>
+                    {% endif %}
+                    <p class="card-text">{{ news.body }}</p>
+                    <p class="card-text">
+                        <small class="text-muted">{{ news.date }}</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock content %}
